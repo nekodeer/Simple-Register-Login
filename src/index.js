@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import setAuthorizationToken from "./utils/validations/setAuthorization Token"
+import store from './redux/store';
+import { setCurrentUser } from './redux/actions/authAction';
+import jwtDecode from "jwt-decode"
+import { Provider } from 'react-redux';
+
+if(localStorage.loginToken){
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.loginToken)))
+  setAuthorizationToken(localStorage.loginToken)
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Provider store={store}>
+      <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

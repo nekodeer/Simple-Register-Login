@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRoutes } from 'react-router-dom';
+import routes from './Routes'
+import Navbar from './components/Navbar';
+import FlashMessageList from './components/flash/FlashMessageList';
+import { Routes,Route } from 'react-router-dom';
+import Shop from './components/shop/Shop';
+import { Fragment, useEffect } from 'react';
+import LoginPage from './components/login/LoginPage';
 
 function App() {
+
+  let element = useRoutes(routes)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+     <Fragment>
+        <Navbar/>
+        <FlashMessageList/>
+        {element}
+        {/* <Routes>
+          <Route path='/shop' element={isAuth===false?<LoginPage/>:<Shop/>}/>
+        </Routes> */}
+     </Fragment>
+    
   );
 }
-
 export default App;
